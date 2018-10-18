@@ -1,12 +1,17 @@
-<h1>Formulario</h1>
+<h1>Pokemomos!</h1>
 <br>
 <div class="form">
 <form #formlogin = "ngForm">
-  <b>Usuario:</b><br>
-  <input type="text" placeholder="Nombre de usuario" [(ngModel)]="user.username" name="username" class="field"><br><br>
-  <b>Contraseña:</b><br>
-  <input type="password" [(ngModel)]="user.password" name="password" class="field" placeholder="Contraseña"><br><br><br>
-  <input type="submit" value="Enviar" class="button">
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Usuario" value="" [(ngModel)]="user.username" name="username">
+  </mat-form-field>
+
+
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Contraseña" type="password" value="" [(ngModel)]="user.password" name="password">
+  </mat-form-field>
+  <br><br>
+  <button mat-raised-button color="primary" routerLink="/home">Enviar</button>
 </form>
 </div>
   {{user.username}}<br>

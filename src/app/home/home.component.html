@@ -1,0 +1,17 @@
+<h1>Pokemomos!</h1>
+<table>
+  <tr *ngFor="let row of (block)">
+    <td
+      *ngFor="let column of (row)"
+    >
+      <div
+        [ngClass] = "{
+        'false': counter(column) === 'true',
+        'true': counter(column) === 'false'
+        }"
+      >
+      &nbsp;
+      </div>
+    </td>
+  </tr>
+</table>
