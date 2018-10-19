@@ -4,14 +4,7 @@
     <td
       *ngFor="let column of (row)"
     >
-      <div
-        [ngClass] = "{
-        'false': counter(column) === 'true',
-        'true': counter(column) === 'false'
-        }"
-      >
-      &nbsp;
-      </div>
+      <app-box [item]="column"></app-box>
     </td>
   </tr>
 </table>

@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, } from '@angular/core';
-import {text} from '@angular/core/src/render3/instructions';
+import {Block} from '../models/block';
+import {PokemonService} from '../service/pokemon.service';
 
 @Component({
   selector: 'app-home',
@@ -7,50 +8,39 @@ import {text} from '@angular/core/src/render3/instructions';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  @Input ()item: Block;
   block: Block[][] = [];
+  imagenes: Array <string>  = [];
   @Input()
-  row = 5;
+  row = 7;
   @Input()
-  column = 5;
-  count = 0;
-  constructor() { }
+  column = 7;
+  count=0;
+  constructor(public pokeService: PokemonService) { }
 
   ngOnInit() {
-    this._initBlock();
+    this.getPokemones();
   }
   private _initBlock() {
     for (let row = 0; row < this.row; row++) {
       const aux: Block[] = [];
-      for (let column = 0; column < this.column; column++) {
-        aux.push(new Block(row, column, '' ));
+      for (let column = 0; column < this.column; column++, this.count++) {
+        aux.push(new Block(row, column, this.imagenes[this.count]));
       }
       this.block.push(aux);
     }
   }
-  // getValue(box: Block): number {
-  //   return box.row * this.row + box.column;
-  // }
-
-  counter(box: Block) {
-    if (box.column % 2 === 0) {
-      box.text = 'true';
-    } else if (box.column % 2 !== 0) {
-      box.text = 'false';
-    }
+  getPokemones () {
+    this.pokeService.getPokemon().subscribe(
+              result => {
+                console.log(result);
+                this.imagenes[0] = result.sprites.back_default;
+                console.log(this.imagenes[0]);
+                this._initBlock();
+              },
+              error => {console.log(error); }
+              );
   }
+
 }
 
-export class Block {
-  row: number;
-  column: number;
-  text: string;
-
-
-  constructor(row: number, column: number, text1: string) {
-    this.row = row;
-    this.column = column;
-    this.text = text1;
-  }
-}
 
