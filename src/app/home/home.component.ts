@@ -14,7 +14,7 @@ export class HomeComponent implements OnInit {
   row = 7;
   @Input()
   column = 7;
-  count=0;
+  counter1=0;
   constructor(public pokeService: PokemonService) { }
 
   ngOnInit() {
@@ -23,8 +23,8 @@ export class HomeComponent implements OnInit {
   private _initBlock() {
     for (let row = 0; row < this.row; row++) {
       const aux: Block[] = [];
-      for (let column = 0; column < this.column; column++, this.count++) {
-        aux.push(new Block(row, column, this.imagenes[this.count]));
+      for (let column = 0; column < this.column; column++, this.counter1++) {
+        aux.push(new Block(row, column, this.imagenes[0]));
       }
       this.block.push(aux);
     }
@@ -32,8 +32,7 @@ export class HomeComponent implements OnInit {
   getPokemones () {
     this.pokeService.getPokemon().subscribe(
               result => {
-                console.log(result);
-                this.imagenes[0] = result.sprites.back_default;
+                this.imagenes[0] = result.sprites.front_default;
                 console.log(this.imagenes[0]);
                 this._initBlock();
               },
